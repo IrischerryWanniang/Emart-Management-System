@@ -1,0 +1,166 @@
+<?php
+include ('Connection.php');
+include ('../admin/function/fetchfunction.php');
+@session_start();
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+  <!-- bootstrap css -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <!-- font awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="Css/styles.css">
+<style>
+    .card-img-top {
+        width: 100%;
+    height: 100px;
+    object-fit: contain;
+}
+</style>
+
+<body>
+
+    <!-- <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Header with Sub Dropdown Menus and Search Bar</title>
+        Bootstrap CSS 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+       Font Awesome CSS 
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+
+    <body>-->
+              <!-- navbar -->
+
+    <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-info ">
+      <div class="container-fluid ">
+   
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="display.php">Product</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Category
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <?php
+                getcategory();
+                ?>
+
+</ul>
+            </li>
+            <?php
+          if(isset($_SESSION['user'])){
+            echo"
+            <li class='nav-item'>
+              <a class='nav-link' href='profile.php'>Account</a>
+            </li>
+            
+            ";
+          }else{
+echo"<li class='nav-item'>
+<a class='nav-link' href='R.php'>Register</a>
+</li>";
+          }
+
+
+            ?>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.php"><i class="fa-solid fa-cart-shopping"></i> <sup><?php cart_item(); ?> </sup> </a>
+            </li>
+            
+            
+
+          </ul>
+          <form class="d-flex" action="search.php" method="get">
+            <input class="form-control me-2" type="search" placeholder="Search" 
+             aria-label="Search" name="search_data" >
+            <input type="submit" value="Search" class="btn btn-outline-light" name="search_product">
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- second nav -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <ul class="navbar-nav me-auto">
+       
+       <?php
+
+if(!isset($_SESSION['user'])){
+  echo"
+  <li class='nav-item'>
+     <a class='nav-link' href='#'>Welcome Guest</a>
+  </li>";
+  
+}else{
+  echo"
+  <li class='nav-item'>
+         <a class='nav-link' href='#'>Welcome ".$_SESSION['uname']."</a>
+  </li>";
+}       
+if(!isset($_SESSION['user'])){
+    echo"
+    <li class='nav-item'>
+                    <a class='nav-link' href='L.php'> Login</a>
+                </li>";
+    
+}else{
+    echo"
+    <li class='nav-item'>
+                    <a class='nav-link' href='logout.php'> Log out</a>
+                </li>";
+}
+    ?>
+      </ul>
+    </nav>
+    <!--  fourth  --> 
+    <div class="row px-1">
+      <div class="col md-10">
+        <!-- Product -->
+        <div class="row">
+          <?php
+        cart();
+        getcard();
+        unique_categories();
+         
+          ?>
+        </div>
+        <!-- row end -->
+      </div>
+        <!-- col end -->
+    </div>
+  </div>
+
+
+
+
+
+  <!-- bootstrap js-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
